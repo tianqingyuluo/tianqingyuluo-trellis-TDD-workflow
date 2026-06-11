@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "templates": [
+    {
+      "id": "rigorous-ai-dev",
+      "type": "spec",
+      "name": "Rigorous AI Development",
+      "description": "Strict AI coding workflow specs for TDD, real integration testing, Playwright E2E, hook/prelude verification, and safe refactoring.",
+      "path": "marketplace/specs/rigorous-ai-dev",
+      "tags": [
+        "ai-coding",
+        "tdd",
+        "integration-testing",
+        "playwright",
+        "trellis"
+      ]
+    }
+  ]
+}
