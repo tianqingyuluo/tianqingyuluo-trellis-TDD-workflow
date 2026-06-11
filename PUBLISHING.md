@@ -86,3 +86,19 @@ cp -R optional-project-local-skills/project-rigorous-dev <target>/.claude/skills
 ```
 
 Use the platform directories that actually exist in the target project. Do not modify native Trellis skills.
+
+## Stable Injection After Init
+
+A spec template alone gives Trellis the rules, but it does not force every platform to inject those rules on every turn. For stable injection, run the post-init installer from the published template repository after `trellis init`:
+
+```bash
+python3 bin/install-rigorous-workflow.py /path/to/target-project
+```
+
+The installer:
+
+- appends a managed rigorous workflow block to `.trellis/workflow.md` so workflow-state injection reminds the agent about requirement analysis, TDD, real integration, Playwright E2E, and safe refactoring on every relevant turn;
+- copies `project-rigorous-dev` into `.agents/skills/` and any existing platform skill directories;
+- does not modify native Trellis skills.
+
+After running it, start a new AI session or reload context so the platform sees the new workflow and skill files.

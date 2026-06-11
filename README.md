@@ -7,6 +7,7 @@ This repository directory is a Trellis spec template marketplace. It seeds new p
 ```text
 trellis-template-marketplace/
 +-- PUBLISHING.md
++-- bin/
 +-- optional-project-local-skills/
 `-- marketplace/
     +-- index.json
@@ -23,6 +24,8 @@ The contents of `marketplace/specs/rigorous-ai-dev/` are copied directly into th
 
 The `optional-project-local-skills/` directory is not installed by `trellis init --registry`. It contains a companion skill that teams can copy into a project after init when they want an explicit auto-trigger workflow in addition to specs.
 
+The `bin/install-rigorous-workflow.py` script is the post-init step that makes the workflow stable: it appends an always-on rigorous workflow block to the target project's `.trellis/workflow.md` and copies the companion local skill into existing platform skill directories.
+
 ## Install From A Published Registry
 
 After pushing this directory to a GitHub repository, install it with:
@@ -35,6 +38,12 @@ For an existing Trellis project, append only missing spec files:
 
 ```bash
 trellis init --registry gh:<org>/<repo>/marketplace --template rigorous-ai-dev --append
+```
+
+Then install stable workflow-state injection:
+
+```bash
+python3 bin/install-rigorous-workflow.py /path/to/target-project
 ```
 
 Pin a release or branch:
