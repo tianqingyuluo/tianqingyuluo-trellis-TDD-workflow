@@ -19,6 +19,7 @@ Shared rules apply to any task that crosses layers, changes behavior, touches te
 
 ## Required Quality Check
 
+- [ ] New feature or behavior-changing work used test-first unless an allowed exception was stated before coding.
 - [ ] Tests prove behavior, not just implementation details.
 - [ ] Mock-only tests are not treated as complete when the feature depends on real integration.
 - [ ] E2E coverage exists for user-visible workflows.

@@ -34,6 +34,14 @@ Implementation follows this order:
 4. Refactor only after the behavior tests are green.
 5. Re-run the full relevant verification set.
 
+For new features or behavior-changing work, this order is the default. If the agent does not write the failing test first, it must state the specific allowed exception before coding:
+
+- UI-only visual adjustment where screenshot or interaction verification is the better first proof.
+- Prototype exploration with fast-changing requirements.
+- Missing test framework where building the foundation first would be disproportionately costly.
+- Very small change already covered by existing quality gates.
+- Initial codebase reconnaissance needed to determine the test boundary.
+
 ## Refactoring Rule
 
 Refactor after correctness is proven. During refactoring:

@@ -97,7 +97,7 @@ python3 bin/install-rigorous-workflow.py /path/to/target-project
 
 The installer:
 
-- appends a managed rigorous workflow block to `.trellis/workflow.md` so workflow-state injection reminds the agent about requirement analysis, TDD, real integration, Playwright E2E, and safe refactoring on every relevant turn;
+- appends a managed rigorous workflow block to `.trellis/workflow.md` so workflow-state injection reminds the agent that new feature and behavior-changing work defaults to TDD, test-first exceptions must be stated before coding, real integration and Playwright E2E are required where relevant, and refactoring waits until tests are green;
 - copies `project-rigorous-dev` into `.agents/skills/` and any existing platform skill directories;
 - does not modify native Trellis skills.
 

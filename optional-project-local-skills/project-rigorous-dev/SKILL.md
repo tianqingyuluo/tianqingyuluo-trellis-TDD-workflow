@@ -34,7 +34,8 @@ Before acting, read the relevant installed specs:
 
 - Do not modify native Trellis skills. Add or update project-local specs or this project-local skill instead.
 - Confirm which specs were read before implementation.
-- Prefer TDD: write the failing test first where practical.
+- New feature and behavior-changing work defaults to TDD: write the failing test before implementation.
+- Skip test-first only after naming one allowed exception before coding: UI-only visual adjustment better verified by screenshot/interaction, prototype exploration with rapidly changing requirements, missing test framework where setup is disproportionately costly, very small change already covered by quality gates, or initial codebase reconnaissance needed to determine the test boundary.
 - Use real integration tests when behavior depends on real runtime boundaries.
 - Use Playwright or the project's established real-browser E2E tool for user-visible workflows.
 - Do not call mocked API or middleware tests "real integration".
@@ -65,6 +66,10 @@ Report:
 ```text
 Specs read:
 - ...
+
+TDD/default workflow:
+- Failing test first, or named exception:
+- Replacement verification when exception used:
 
 Tests/verification:
 - Unit/component:

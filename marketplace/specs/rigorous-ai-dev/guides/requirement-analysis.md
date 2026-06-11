@@ -18,7 +18,7 @@ Answer these questions:
 
 ## TDD Planning
 
-Choose the first failing test:
+For new features and behavior changes, choose the first failing test before implementation:
 
 - pure logic regression test;
 - API contract test;
@@ -27,6 +27,8 @@ Choose the first failing test:
 - Playwright E2E workflow test.
 
 Start narrow, but do not stop narrow if the real risk is at an integration boundary.
+
+If test-first is skipped, state the exact allowed exception before coding: UI-only visual adjustment, prototype exploration, missing test framework with disproportionate setup cost, very small change covered by existing quality gates, or reconnaissance needed to determine the test boundary.
 
 ## Scope Control
 

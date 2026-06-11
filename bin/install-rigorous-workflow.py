@@ -22,7 +22,8 @@ WORKFLOW_BLOCK = f"""{START}
 This project installed the `rigorous-ai-dev` Trellis workflow. These rules are mandatory and apply even when a task looks small:
 
 - Requirement analysis before coding: identify affected layers, runtime dependencies, and the first test that proves the behavior.
-- TDD by default: write or update a failing behavior/regression test before implementation where practical.
+- New feature and behavior-changing work defaults to TDD: write or update a failing behavior/regression test before implementation.
+- Test-first exceptions are narrow and must be stated before coding: UI-only visual adjustment verified better by screenshot/interaction, prototype exploration with rapidly changing requirements, missing test framework where adding it first is disproportionately costly, very small change already covered by existing quality gates, or initial codebase reconnaissance needed to determine the test boundary.
 - Real integration is required when behavior depends on databases, middleware, queues, caches, search, storage, browser runtime, external HTTP, auth, or provider APIs. Mock-only tests do not prove these paths.
 - Browser/user-visible workflows require Playwright or the project's established real-browser E2E tool against a real app/backend or documented local equivalent.
 - Refactor only after relevant unit/component, real integration, and E2E tests are green.
@@ -42,7 +43,7 @@ During final reporting, explicitly list unit/component, real integration, E2E, l
 {END}"""
 
 WORKFLOW_STATE_BLOCK = f"""{STATE_START}
-**Rigorous AI development contract (mandatory)**: before implementation, do requirement analysis and identify affected layers, runtime dependencies, and the first behavior/regression test. Prefer TDD: write or update a failing test before code where practical. Mock-only tests are not enough when behavior depends on databases, middleware, queues, caches, search, storage, browser runtime, external HTTP, auth, or provider APIs. Browser/user-visible workflows require Playwright or the project's established real-browser E2E tool against a real app/backend or documented local equivalent. Refactor only after relevant unit/component, real integration, and E2E tests are green. Do not modify native Trellis skills; use project-local specs, workflow-state rules, or local skills instead.
+**Rigorous AI development contract (mandatory)**: before implementation, do requirement analysis and identify affected layers, runtime dependencies, and the first behavior/regression test. For new feature or behavior-changing work, TDD is the default: write/update the failing test before implementation. Test-first may be skipped only when explicitly stated before coding for one of these exceptions: UI-only visual adjustment better verified by screenshot/interaction, prototype exploration with rapidly changing requirements, missing test framework where adding it first is disproportionately costly, very small change already covered by existing quality gates, or initial codebase reconnaissance needed to determine the test boundary. Mock-only tests are not enough when behavior depends on databases, middleware, queues, caches, search, storage, browser runtime, external HTTP, auth, or provider APIs. Browser/user-visible workflows require Playwright or the project's established real-browser E2E tool against a real app/backend or documented local equivalent. Refactor only after relevant unit/component, real integration, and E2E tests are green. Do not modify native Trellis skills; use project-local specs, workflow-state rules, or local skills instead.
 {STATE_END}"""
 
 WORKFLOW_STATE_RE = re.compile(

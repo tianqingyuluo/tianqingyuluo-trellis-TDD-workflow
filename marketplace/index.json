@@ -5,7 +5,7 @@
       "id": "rigorous-ai-dev",
       "type": "spec",
       "name": "Rigorous AI Development",
-      "description": "Strict AI coding workflow specs for TDD, real integration testing, Playwright E2E, hook/prelude verification, and safe refactoring.",
+      "description": "Strict AI coding workflow specs for default TDD on new feature work, real integration testing, Playwright E2E, hook/prelude verification, and safe refactoring.",
       "path": "marketplace/specs/rigorous-ai-dev",
       "tags": [
         "ai-coding",

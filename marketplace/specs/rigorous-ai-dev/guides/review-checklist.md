@@ -10,7 +10,8 @@ Use this before claiming a task is complete.
 
 ## Tests
 
-- [ ] A failing test existed first, or the reason for not using test-first is documented.
+- [ ] For new feature or behavior-changing work, a failing test existed first unless an allowed exception was stated before coding.
+- [ ] Any test-first exception names the replacement verification and is one of: UI-only visual adjustment, prototype exploration, missing test framework with disproportionate setup cost, very small change covered by existing quality gates, or reconnaissance needed to determine the test boundary.
 - [ ] Unit/component tests cover local behavior.
 - [ ] Real integration tests cover real dependencies where relevant.
 - [ ] Playwright or equivalent E2E tests cover user-visible workflows.

@@ -4,7 +4,7 @@ These specs define a strict AI-assisted development workflow. They are meant to 
 
 ## Core Rule
 
-Do not let implementation outrun understanding. The agent must first analyze requirements, map the design, write or update tests, verify behavior with real systems where behavior depends on integration, and only then refactor.
+Do not let implementation outrun understanding. The agent must first analyze requirements, map the design, use TDD by default for new feature and behavior-changing work, verify behavior with real systems where behavior depends on integration, and only then refactor.
 
 ## Installed Layers
 

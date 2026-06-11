@@ -2,7 +2,7 @@
 
 ## Test-Driven Development
 
-For behavior changes, prefer this loop:
+For new feature work and behavior-changing work, TDD is the default workflow:
 
 1. Write a failing test that captures the target behavior or regression.
 2. Run the test and confirm it fails for the right reason.
@@ -10,7 +10,15 @@ For behavior changes, prefer this loop:
 4. Run the targeted test and relevant surrounding tests.
 5. Refactor with tests green.
 
-If test-first is impractical, explicitly record why and add tests immediately after the implementation.
+Test-first may be skipped only when the agent states the exception before coding and names the replacement verification. Allowed exceptions:
+
+- UI-only visual adjustment where implementing first and validating by screenshot or browser interaction is more effective.
+- Prototype exploration where requirements are still changing quickly.
+- The project lacks a test framework and adding the foundation first would be disproportionately costly for the current request.
+- The change is very small and existing quality gates already cover the behavior.
+- Initial codebase reconnaissance is needed before the test boundary can be determined.
+
+After an exception, add or update tests as soon as the test boundary is known unless the change is truly covered by the stated quality gate.
 
 ## Test Pyramid
 

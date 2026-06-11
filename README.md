@@ -1,6 +1,6 @@
 # Rigorous AI Development Trellis Marketplace
 
-This repository directory is a Trellis spec template marketplace. It seeds new projects with strict AI development conventions for requirement analysis, TDD, real integration testing, Playwright E2E verification, safe refactoring, and Trellis context-injection checks.
+This repository directory is a Trellis spec template marketplace. It seeds new projects with strict AI development conventions for requirement analysis, default TDD for new feature and behavior-changing work, real integration testing, Playwright E2E verification, safe refactoring after tests are green, and Trellis context-injection checks.
 
 ## Layout
 
@@ -24,7 +24,7 @@ The contents of `marketplace/specs/rigorous-ai-dev/` are copied directly into th
 
 The `optional-project-local-skills/` directory is not installed by `trellis init --registry`. It contains a companion skill that teams can copy into a project after init when they want an explicit auto-trigger workflow in addition to specs.
 
-The `bin/install-rigorous-workflow.py` script is the post-init step that makes the workflow stable: it appends an always-on rigorous workflow block to the target project's `.trellis/workflow.md` and copies the companion local skill into existing platform skill directories.
+The `bin/install-rigorous-workflow.py` script is the post-init step that makes the workflow stable: it appends an always-on rigorous workflow block to the target project's `.trellis/workflow.md` and copies the companion local skill into existing platform skill directories. The injected block makes TDD the default for new feature and behavior-changing work, with only explicitly stated exceptions.
 
 ## Install From A Published Registry
 
