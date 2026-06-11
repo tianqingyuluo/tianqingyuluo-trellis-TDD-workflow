@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 import shutil
 import sys
 from pathlib import Path
@@ -11,6 +12,8 @@ from pathlib import Path
 
 START = "<!-- RIGOROUS_AI_DEV:START -->"
 END = "<!-- RIGOROUS_AI_DEV:END -->"
+STATE_START = "<!-- RIGOROUS_AI_DEV_WORKFLOW_STATE:START -->"
+STATE_END = "<!-- RIGOROUS_AI_DEV_WORKFLOW_STATE:END -->"
 
 WORKFLOW_BLOCK = f"""{START}
 
@@ -37,6 +40,14 @@ Before implementation, read:
 During final reporting, explicitly list unit/component, real integration, E2E, lint/typecheck, and any skipped checks with reasons.
 
 {END}"""
+
+WORKFLOW_STATE_BLOCK = f"""{STATE_START}
+**Rigorous AI development contract (mandatory)**: before implementation, do requirement analysis and identify affected layers, runtime dependencies, and the first behavior/regression test. Prefer TDD: write or update a failing test before code where practical. Mock-only tests are not enough when behavior depends on databases, middleware, queues, caches, search, storage, browser runtime, external HTTP, auth, or provider APIs. Browser/user-visible workflows require Playwright or the project's established real-browser E2E tool against a real app/backend or documented local equivalent. Refactor only after relevant unit/component, real integration, and E2E tests are green. Do not modify native Trellis skills; use project-local specs, workflow-state rules, or local skills instead.
+{STATE_END}"""
+
+WORKFLOW_STATE_RE = re.compile(
+    r"(?ms)(^\[workflow-state:([^\]]+)\]\n)(.*?)(^\[/workflow-state:\2\]\s*)"
+)
 
 SKILL_TARGETS = [
     ".agents/skills",
@@ -69,12 +80,37 @@ def replace_managed_block(text: str, block: str) -> str:
     return text.rstrip() + "\n\n" + block + "\n"
 
 
+def replace_state_block(body: str) -> str:
+    if STATE_START in body and STATE_END in body:
+        before, rest = body.split(STATE_START, 1)
+        _, after = rest.split(STATE_END, 1)
+        return before.rstrip() + "\n" + WORKFLOW_STATE_BLOCK + after
+    return body.rstrip() + "\n" + WORKFLOW_STATE_BLOCK + "\n"
+
+
+def inject_workflow_state_blocks(text: str) -> tuple[str, int]:
+    count = 0
+
+    def repl(match: re.Match[str]) -> str:
+        nonlocal count
+        count += 1
+        open_tag, _status, body, close_tag = match.groups()
+        return open_tag + replace_state_block(body) + close_tag
+
+    updated = WORKFLOW_STATE_RE.sub(repl, text)
+    return updated, count
+
+
 def install_workflow(project: Path) -> None:
     workflow = project / ".trellis" / "workflow.md"
     if not workflow.exists():
         raise FileNotFoundError(f"Missing Trellis workflow file: {workflow}")
     text = workflow.read_text(encoding="utf-8")
-    workflow.write_text(replace_managed_block(text, WORKFLOW_BLOCK), encoding="utf-8")
+    text, injected_count = inject_workflow_state_blocks(text)
+    if injected_count == 0:
+        raise ValueError(f"No [workflow-state:*] blocks found in {workflow}")
+    text = replace_managed_block(text, WORKFLOW_BLOCK)
+    workflow.write_text(text, encoding="utf-8")
 
 
 def install_skill(project: Path, force_all_targets: bool) -> list[Path]:
@@ -121,7 +157,7 @@ def main() -> int:
         print(f"error: {exc}", file=sys.stderr)
         return 1
 
-    print(f"Updated: {project / '.trellis' / 'workflow.md'}")
+    print(f"Updated workflow-state injection: {project / '.trellis' / 'workflow.md'}")
     if installed:
         print("Installed project-local skill:")
         for path in installed:
